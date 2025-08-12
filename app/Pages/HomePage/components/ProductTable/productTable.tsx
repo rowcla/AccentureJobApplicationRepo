@@ -3,13 +3,33 @@ import sampleData from "../../../../data/sampleData.json"
 import { ProductBox } from "./productBox";
 import { Stack } from "~/uiKit/Stack";
 import { ActionBar } from "./actionBar";
+import { useState } from "react";
+
+interface Filters {
+  productType?: string,
+  productName?: string,
+}
 
 export function ProductTable() {
+  var [filters, setFilters] = useState<Filters>({})
+
+  var data = sampleData.filter(item => {
+    if(filters.productType && item.type != filters.productType){
+      return false
+    }
+    if(filters.productName && filters.productName !== "" && !item.productName.toLowerCase().includes(filters.productName.toLowerCase())){
+      return false
+    }
+    return true
+  });
   return (
     <Stack direction="column" style={{margin: "1rem"}}>
-      <ActionBar />
+      <ActionBar 
+        onChangeNameFilter={(value) => {setFilters((f) => ({...f, productName: value}))}}
+        onChangeTypeFilter={(value) => {setFilters((f) => ({...f, productType: value}))}}
+      />
       <FlexContainer>
-        {sampleData.map(dataItem =>  
+        {data.map(dataItem =>  
           <ProductBox data={dataItem} />
         )}
       </FlexContainer>
