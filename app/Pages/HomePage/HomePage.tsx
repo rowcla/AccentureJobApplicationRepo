@@ -1,4 +1,4 @@
-import { ProductTable } from "./components/productTable";
+import { ProductTable } from "./components/ProductTable/productTable";
 
 export function HomePage() {
   return (
