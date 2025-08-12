@@ -28,14 +28,15 @@ export function ProductBox(props: Props) {
   );
 }
 
-var boxPadding = '1.5rem'
+var boxPadding = '1rem'
 
 var BoxContainer = styled.div`
   display: flex;
+  flex: 1;
   border: black 1px solid;
   padding: ${boxPadding};
   flex-direction: column;
-  width: 18rem;
+  min-width: 18rem;
   align-items: center;
   position: relative;
 `

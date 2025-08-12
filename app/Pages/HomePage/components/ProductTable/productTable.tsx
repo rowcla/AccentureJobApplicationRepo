@@ -1,16 +1,24 @@
 import { styled } from "styled-components";
 import sampleData from "../../../../data/sampleData.json"
 import { ProductBox } from "./productBox";
+import { Stack } from "~/uiKit/Stack";
+import { ActionBar } from "./actionBar";
 
 export function ProductTable() {
   return (
-    <FlexContainer>
-      <ProductBox data={sampleData[1]} />
-    </FlexContainer>
+    <Stack direction="column" style={{margin: "1rem"}}>
+      <ActionBar />
+      <FlexContainer>
+        {sampleData.map(dataItem =>  
+          <ProductBox data={dataItem} />
+        )}
+      </FlexContainer>
+    </Stack>
   );
 }
 
 var FlexContainer = styled.div`
+  flex-wrap: wrap;
   display: flex;
 `
 
