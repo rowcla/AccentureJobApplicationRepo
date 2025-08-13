@@ -5,23 +5,16 @@ import { Stack } from "~/uiKit/Stack";
 import { ActionBar } from "./actionBar";
 import { useState } from "react";
 
-interface Filters {
+export interface ProductFilters {
   productType?: string,
   productName?: string,
 }
 
 export function ProductTable() {
-  var [filters, setFilters] = useState<Filters>({})
+  var [filters, setFilters] = useState<ProductFilters>({})
 
-  var data = sampleData.filter(item => {
-    if(filters.productType && item.type != filters.productType){
-      return false
-    }
-    if(filters.productName && filters.productName !== "" && !item.productName.toLowerCase().includes(filters.productName.toLowerCase())){
-      return false
-    }
-    return true
-  });
+  var data = getFilteredProductData(filters)
+  
   return (
     <Stack direction="column" style={{margin: "1rem"}}>
       <ActionBar 
@@ -35,6 +28,18 @@ export function ProductTable() {
       </FlexContainer>
     </Stack>
   );
+}
+
+export function getFilteredProductData(filters: ProductFilters){
+   return sampleData.filter(item => {
+    if(filters.productType && item.type != filters.productType){
+      return false
+    }
+    if(filters.productName && filters.productName !== "" && !item.productName.toLowerCase().includes(filters.productName.toLowerCase())){
+      return false
+    }
+    return true
+  });
 }
 
 var FlexContainer = styled.div`
